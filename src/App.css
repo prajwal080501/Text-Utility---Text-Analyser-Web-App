@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .App-logo {
@@ -34,5 +35,13 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+
+@media screen and (max-width: 768px){
+  .App{
+    width: 100vw;
+    height: fit-content;
   }
 }
