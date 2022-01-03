@@ -1,6 +1,7 @@
 import React from 'react'
 import "./About.css";
 const About = ({ darkMode, setDarkMode, handleDarkModew }) => {
+
     const myStyle = {
         transition: 'all 0.4s linear',
         backgroundColor: `${darkMode ? "#3d3b3b" : "white"}`,

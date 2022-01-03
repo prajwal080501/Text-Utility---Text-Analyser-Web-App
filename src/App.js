@@ -11,6 +11,7 @@ import { Alert } from "react-bootstrap";
 import Popup from "./components/Alert/Popup";
 
 function App() {
+
   const [darkMode, setDarkMode] = useState(false);
   const [show, setShow] = useState(true);
 
@@ -37,9 +38,9 @@ function App() {
     }
   };
 
-  const myStyle = {
+  let myStyle = {
     transition: "all 0.4s linear",
-    backgroundColor: `${darkMode ? "#3d3b3b" : "white"}`,
+    backgroundColor: `${darkMode ? "#3d3b3b " : "white "}`,
     color: `${darkMode ? "white" : "black"}`,
     borderColor: `${darkMode ? "white" : "black"}`,
   };
@@ -63,6 +64,7 @@ function App() {
                 darkMode={darkMode}
                 setDarkMode={setDarkMode}
                 handleDarkMode={handleDarkMode}
+                myStyle={myStyle}
               />
             }
           />

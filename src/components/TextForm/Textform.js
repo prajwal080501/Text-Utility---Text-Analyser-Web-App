@@ -3,7 +3,12 @@ import { Alert, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "./Textform.css";
 
-export default function Textform({ darkMode, setDarkMode, showAlert }) {
+export default function Textform({
+  darkMode,
+  setDarkMode,
+  showAlert,
+  myStyle,
+}) {
   const [input, setInput] = useState("");
   const [wordCount, setWordCount] = useState(0);
 
@@ -22,7 +27,6 @@ export default function Textform({ darkMode, setDarkMode, showAlert }) {
   const clearText = () => {
     setInput("");
     showAlert("Text Cleared", "success");
-
   };
 
   const words = () => {
@@ -32,7 +36,6 @@ export default function Textform({ darkMode, setDarkMode, showAlert }) {
   const reverseText = () => {
     setInput(input.split("").reverse().join(""));
     showAlert("Text reversed", "success");
-
   };
 
   const capSelectedText = () => {
@@ -45,18 +48,12 @@ export default function Textform({ darkMode, setDarkMode, showAlert }) {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(input);
     showAlert("Text copied to clipboard", "success");
-
   };
   const handleLowClick = () => {
     setInput(input.toLowerCase());
     showAlert("Text converted to lowercase", "success");
   };
 
-  const myStyle = {
-    backgroundColor: `${darkMode ? "black" : "white"}`,
-    color: `${darkMode ? "white" : "black"}`,
-    borderColor: `${darkMode ? "white" : "black"}`,
-  };
   return (
     <>
       <div className="container1">
@@ -67,47 +64,77 @@ export default function Textform({ darkMode, setDarkMode, showAlert }) {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Control
-                styles={myStyle}
                 value={input}
                 onChange={handleChange}
                 as="textarea"
                 placeholder="Enter or paste text"
-                className="textarea"
+                className={
+                  darkMode ? "bg-dark text-light" : "bg-light text-dark"
+                }
                 rows={3}
               />
             </Form.Group>
           </Form>
-          <div class="button-container">
-            <Button onClick={copyToClipboard} variant="danger" className="btn">
+          <div className="button-container">
+            <Button
+              onClick={copyToClipboard}
+              variant={darkMode ? "dark" : "danger"}
+              className="btn"
+              disabled={!input}  
+            >
               Copy Text
             </Button>
-            <Button onClick={handleUpClick} variant="danger" className="btn">
+            <Button
+              onClick={handleUpClick}
+              variant={darkMode ? "dark" : "danger"}
+              disabled={!input}  
+              className="btn"
+            >
               Capitalize Text
             </Button>
-            <Button onClick={handleLowClick} variant="danger" className="btn">
+            <Button
+              onClick={handleLowClick}
+              disabled={!input}
+              variant={darkMode ? "dark" : "danger"}
+              className="btn"
+            >
               Convert to lowercase
             </Button>
-            <Button onClick={clearText} variant="danger" className="btn">
+            <Button
+              onClick={clearText}
+              disabled={!input}
+              variant={darkMode ? "dark" : "danger"}
+              className="btn"
+            >
               Clear Text
             </Button>
           </div>
-          <div class="button-container">
-            <Button onClick={reverseText} variant="danger" className="btn">
+          <div className="button-container">
+            <Button
+              onClick={reverseText}
+              disabled={!input}
+              variant={darkMode ? "dark" : "danger"}
+              className="btn"
+            >
               Reverse Text
-            </Button>
-            <Button onClick={capSelectedText} variant="danger" className="btn">
-              Capitalize selected Text
             </Button>
           </div>
         </div>
-        <div class="container2">
-          <div class="preview" styles={myStyle}>
+        <div className="container2">
+          <div className="preview" style={myStyle}>
             <h3 className="title">Preview</h3>
-            <p>{input}</p>
+            <p>{input.length>0 ? input : "Notihing to preview!"}</p>
           </div>
-          <div class="text-analyser" styles={myStyle}>
+          <div className="text-analyser" style={myStyle}>
             <h3 className="title">Your text summary</h3>
-            <p className="data">Word Count: {input.split(" ").length} </p>
+            <p className="data">
+              Word Count:{" "}
+              {
+                input.split(" ").filter((element) => {
+                  return element.length !== 0;
+                }).length
+              }{" "}
+            </p>
             <p className="data">
               Character Count (including spaces): <b>{input.length}</b>
             </p>
@@ -115,9 +142,14 @@ export default function Textform({ darkMode, setDarkMode, showAlert }) {
               Character Count (excluding spaces):{" "}
               <b>{input.length - input.split(" ").length + 1}</b>
             </p>
-            
+
             <p className="data">
-              Read Time: Will take <b>{input.split(" ").length * 0.08}</b>{" "}
+              Read Time: Will take{" "}
+              <b>
+                {input.split(" ").filter((element) => {
+                  return element.length !== 0;
+                }).length * 0.08}
+              </b>{" "}
               minutes to read
             </p>
           </div>

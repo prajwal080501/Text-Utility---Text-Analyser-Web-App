@@ -4,7 +4,7 @@ import Textform from '../TextForm/Textform'
 const Home = ({darkMode, setDarkMode, showAlert}) => {
     return (
         <div className="home" style={{marginTop: '50px'}}>
-            <Textform  showAlert={showAlert}/>
+            <Textform darkMode={darkMode} showAlert={showAlert}/>
         </div>
     )
 }
